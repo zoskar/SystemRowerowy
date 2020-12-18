@@ -27,15 +27,15 @@ public class Uzytkownik {
         return rower != null;
     }
 
-
+    //TODO
     public void wypozyczRower(int nrRower){
 
 
     }
-
+    //TODO
     public void oddajRower(){
         if(maRower()){
-            // oddaj rower
+
         }
         else{
             System.out.println("Nie posiadasz wypożyczonego roweru!");
@@ -44,9 +44,12 @@ public class Uzytkownik {
 
     }
 
+    /**
+     * Wyświetla na żądanie kod do obręczy wypożyczonego roweru
+     */
     public void wyswietlKodObreczy(){
         if(maRower()){
-            //System.out.println(rower.kodObreczy);
+            System.out.println(rower.getKodObreczy());
         }
         else{
             System.out.println("Nie posiadasz wypożyczonego roweru!");
@@ -54,12 +57,23 @@ public class Uzytkownik {
 
     }
 
+    /**
+     * Sprawdzenie salda na koncie
+     */
     public void pokazStanKonta(){
         System.out.println(stanKonta);
     }
 
+    //TODO
     public void doladujKonto(){
         // klasa Konto?
+    }
+
+    /**
+     * Metoda wyświetlająca użytkownikowi nazwę najbliższej mu stacji rowerowej
+     */
+    public void jakaNajblizszaStacja() {
+        System.out.println(this.miasto.getSystem().najblizszaStacja(lokalizacja).getNazwaStacji());
     }
 
 

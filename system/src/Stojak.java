@@ -39,6 +39,13 @@ public class Stojak {
     public Rower wydajRower(Rower rower){
         return null;
     }
-    //TODO
+    //TODO chyba zrobiliśmy to w StacjaRowerowa
     public void przypnijRower(Rower rower){}
+
+    /**
+     * @return liczba rowerów na danym stojaku
+     */
+    public int ileRowerow(){
+        return this.rowery.size();
+    }
 }

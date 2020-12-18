@@ -1,3 +1,7 @@
+/**
+ * Klasa danegi miasta, zawiera jego nazwę, zakres współrzędnych miasta (aby informować go, że wyjechał on poza jego
+ * granice) oraz informacje o jego systemie rowerowym
+ */
 public class Miasto {
 
     //Pola-------------------------------------------------------------------------------------------------------------
@@ -69,8 +73,4 @@ public class Miasto {
     }
     //Metody-----------------------------------------------------------------------------------------------------------
 
-    //TODO
-    public int ileStacji(){
-        return -1;
-    }
 }
