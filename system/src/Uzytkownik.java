@@ -1,70 +1,103 @@
 import java.util.List;
-import java.util.Scanner;
 
 public class Uzytkownik {
 
     private int userID;
     private Miasto miasto;
     private List<Rower> historiaWypozyczen;
-
     private Rower rower;
-    private int[] lokalizacja = new int[2];
-    private double stanKonta;
+    private int[] lokalizacja;
     private int czasWypozyczenia;
     private SystemRowerowy systemRowerowy;
-
+    private Saldo saldo;
 
     public Uzytkownik(int userID, Miasto miasto, List<Rower> historiaWypozyczen,
-                      Rower rower, int[] lokalizacja, double stanKonta, int czasWypozyczenia) {
+                      Rower rower, int[] lokalizacja, Saldo saldo, int czasWypozyczenia) {
         this.userID = userID;
         this.miasto = miasto;
         this.historiaWypozyczen = historiaWypozyczen;
         this.rower = rower;
         this.lokalizacja = lokalizacja;
-        this.stanKonta = stanKonta;
         this.czasWypozyczenia = czasWypozyczenia;
         this.systemRowerowy = this.miasto.getSystem();
-
+        this.saldo = saldo;
     }
 
     public boolean maRower(){
         return rower != null;
     }
 
-    //TODO
-    public void wypozyczRower(int nrRower){
+    /**
+     * Metoda wypożyczenia roweru
+     * @param nrRoweru numer roweru który użytkownik chce wypożyczyć
+     */
+    public void wypozyczRower(int nrRoweru){
+        //sprawdzamy czy użytkownik nie ma już wypożyczonego roweru
+        if (!maRower()){
+            Pair para = systemRowerowy.najblizszaStacja(lokalizacja, maRower());
+            String najblizszaStacja = para.getNazwaStacji();
+            double odlegloscOdStacji = para.getOdlegloscOdStacji();
+            if (odlegloscOdStacji < 20){
+                for (int i = 0; i <systemRowerowy.getStacjeRowerowe().size(); i++) {
+                    if (systemRowerowy.getStacjeRowerowe().get(i).getNazwaStacji().equals(najblizszaStacja)){
+                        rower = systemRowerowy.getStacjeRowerowe().get(i).wydajRower(nrRoweru);
+                        systemRowerowy.getListaWypozyczonychRowerow().add(rower);
 
+                    }
+                }
+            }
+            else {
+                System.out.println("Nie znajdujesz się w pobliżu żadnej stacji. Najbliższa stacja to " +
+                        najblizszaStacja + " odległa od Ciebie o " + odlegloscOdStacji);
+            }
+        }
+        else {
+            System.out.println("Masz obecnie wypożyczony rower!");
+        }
 
     }
-    //TODO
     public void oddajRower(){
         if(maRower()){
-            Scanner scanner = new Scanner(System.in);
-            Pair para = this.systemRowerowy.najblizszaStacja(this.lokalizacja);
+            Pair para = this.systemRowerowy.najblizszaStacja(this.lokalizacja, maRower());
             String najblizszaStacja = para.getNazwaStacji();
             double odlegloscOdStacji = para.getOdlegloscOdStacji();
             if (odlegloscOdStacji <= 20){
                 System.out.println("Czy chcesz oddać rower w stacji: " + najblizszaStacja + "?");
                 //wyswietlenie przycisków
                 boolean wybor = true; //wybor użytkownika
+                //iterujemy po wszystkich stacjach
                 for (int i = 0; i <this.systemRowerowy.getStacjeRowerowe().size(); i++) {
+                    //szukamy stacji której nazwa jest równa najbliższej stacji od użytkownika
+                    //brak else, ponieważ wiemy że musi istnieć stacja o podanej nazwie
                     if (this.systemRowerowy.getStacjeRowerowe().get(i).getNazwaStacji().equals(najblizszaStacja) ){
+                        //sprawdzamy czy stacja przyjmie rower (czy ma wolne miejsca)
                         if (this.systemRowerowy.getStacjeRowerowe().get(i).przyjmijRower(this.rower)){
-                            this.rower = null; //czy to można tak robić
+                            this.systemRowerowy.getListaWypozyczonychRowerow().remove(this.rower);//usuniecie roweru z listy wypozyczonych rowerów
+                            //czy to można tak robić?
+                            this.rower = null;
+                            //zwiększenie salda
+                            saldo.pomniejsz(this.czasWypozyczenia);
+                            //reset zegara wypożyczenia
+                            this.czasWypozyczenia = 0;
+                            break;
                         }
-                        else System.out.println("Stacja przy ktorej stoisz jest pełna");
-
-
-
+                        // stacja nie ma wolnych miejsc
+                        else {
+                            System.out.println("Stacja przy ktorej stoisz jest pełna");
+                            System.out.print("Najbliższa stacja z wolnymi miejscami to: ");
+                            jakaNajblizszaStacja();
+                        }
                     }
                 }
+            }
+            else {
+                System.out.println("Jesteś za daleko od najbliższej stacji. Najbliższa stacja to: " + najblizszaStacja +
+                        " . Znajdujesz się " + odlegloscOdStacji + " od niej");
             }
         }
         else{
             System.out.println("Nie posiadasz wypożyczonego roweru!");
         }
-
-
     }
 
     /**
@@ -81,22 +114,10 @@ public class Uzytkownik {
     }
 
     /**
-     * Sprawdzenie salda na koncie
-     */
-    public void pokazStanKonta(){
-        System.out.println(stanKonta);
-    }
-
-    //TODO
-    public void doladujKonto(){
-        // klasa Konto?
-    }
-
-    /**
      * Metoda wyświetlająca użytkownikowi nazwę najbliższej mu stacji rowerowej
      */
     public void jakaNajblizszaStacja() {
-        System.out.println(this.systemRowerowy.najblizszaStacja(lokalizacja).getNazwaStacji());
+        System.out.println(this.systemRowerowy.najblizszaStacja(lokalizacja, maRower()).getNazwaStacji());
     }
 
 
@@ -140,14 +161,6 @@ public class Uzytkownik {
         this.lokalizacja = lokalizacja;
     }
 
-    public double getStanKonta() {
-        return stanKonta;
-    }
-
-    public void setStanKonta(double stanKonta) {
-        this.stanKonta = stanKonta;
-    }
-
     public int getCzasWypozyczenia() {
         return czasWypozyczenia;
     }
@@ -159,4 +172,8 @@ public class Uzytkownik {
     public SystemRowerowy getSystemRowerowy() {return systemRowerowy;}
 
     public void setSystemRowerowy(SystemRowerowy systemRowerowy) {this.systemRowerowy = systemRowerowy;}
+
+    public Saldo getSaldo() {return saldo;}
+
+    public void setSaldo(Saldo saldo) {this.saldo = saldo;}
 }
