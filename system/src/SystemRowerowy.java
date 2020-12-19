@@ -8,6 +8,22 @@ public class SystemRowerowy {
     private List<Rower> listaRowerow;
     private ArrayList<StacjaRowerowa> stacjeRowerowe;
 
+    public List<Rower> getListaRowerow() {
+        return listaRowerow;
+    }
+
+    public void setListaRowerow(List<Rower> listaRowerow) {
+        this.listaRowerow = listaRowerow;
+    }
+
+    public ArrayList<StacjaRowerowa> getStacjeRowerowe() {
+        return stacjeRowerowe;
+    }
+
+    public void setStacjeRowerowe(ArrayList<StacjaRowerowa> stacjeRowerowe) {
+        this.stacjeRowerowe = stacjeRowerowe;
+    }
+
     /**
      * @param listaRowerow wypełnić
      * @param stacjeRowerowe wypełnić

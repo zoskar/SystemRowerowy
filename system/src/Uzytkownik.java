@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Scanner;
 
 public class Uzytkownik {
 
@@ -10,6 +11,7 @@ public class Uzytkownik {
     private int[] lokalizacja = new int[2];
     private double stanKonta;
     private int czasWypozyczenia;
+    private SystemRowerowy systemRowerowy;
 
 
     public Uzytkownik(int userID, Miasto miasto, List<Rower> historiaWypozyczen,
@@ -21,6 +23,8 @@ public class Uzytkownik {
         this.lokalizacja = lokalizacja;
         this.stanKonta = stanKonta;
         this.czasWypozyczenia = czasWypozyczenia;
+        this.systemRowerowy = this.miasto.getSystem();
+
     }
 
     public boolean maRower(){
@@ -35,7 +39,26 @@ public class Uzytkownik {
     //TODO
     public void oddajRower(){
         if(maRower()){
+            Scanner scanner = new Scanner(System.in);
+            Pair para = this.systemRowerowy.najblizszaStacja(this.lokalizacja);
+            String najblizszaStacja = para.getNazwaStacji();
+            double odlegloscOdStacji = para.getOdlegloscOdStacji();
+            if (odlegloscOdStacji <= 20){
+                System.out.println("Czy chcesz oddać rower w stacji: " + najblizszaStacja + "?");
+                //wyswietlenie przycisków
+                boolean wybor = true; //wybor użytkownika
+                for (int i = 0; i <this.systemRowerowy.getStacjeRowerowe().size(); i++) {
+                    if (this.systemRowerowy.getStacjeRowerowe().get(i).getNazwaStacji().equals(najblizszaStacja) ){
+                        if (this.systemRowerowy.getStacjeRowerowe().get(i).przyjmijRower(this.rower)){
+                            this.rower = null; //czy to można tak robić
+                        }
+                        else System.out.println("Stacja przy ktorej stoisz jest pełna");
 
+
+
+                    }
+                }
+            }
         }
         else{
             System.out.println("Nie posiadasz wypożyczonego roweru!");
@@ -73,7 +96,7 @@ public class Uzytkownik {
      * Metoda wyświetlająca użytkownikowi nazwę najbliższej mu stacji rowerowej
      */
     public void jakaNajblizszaStacja() {
-        System.out.println(this.miasto.getSystem().najblizszaStacja(lokalizacja).getNazwaStacji());
+        System.out.println(this.systemRowerowy.najblizszaStacja(lokalizacja).getNazwaStacji());
     }
 
 
@@ -132,4 +155,8 @@ public class Uzytkownik {
     public void setCzasWypozyczenia(int czasWypozyczenia) {
         this.czasWypozyczenia = czasWypozyczenia;
     }
+
+    public SystemRowerowy getSystemRowerowy() {return systemRowerowy;}
+
+    public void setSystemRowerowy(SystemRowerowy systemRowerowy) {this.systemRowerowy = systemRowerowy;}
 }
