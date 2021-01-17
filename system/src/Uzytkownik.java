@@ -4,18 +4,15 @@ public class Uzytkownik {
 
     private int userID;
     private Miasto miasto;
-    private List<Rower> historiaWypozyczen;
     private Rower rower;
     private int[] lokalizacja;
     private int czasWypozyczenia;
     private SystemRowerowy systemRowerowy;
     private Saldo saldo;
 
-    public Uzytkownik(int userID, Miasto miasto, List<Rower> historiaWypozyczen,
-                      Rower rower, int[] lokalizacja, Saldo saldo, int czasWypozyczenia) {
+    public Uzytkownik(int userID, Miasto miasto, Rower rower, int[] lokalizacja, Saldo saldo, int czasWypozyczenia) {
         this.userID = userID;
         this.miasto = miasto;
-        this.historiaWypozyczen = historiaWypozyczen;
         this.rower = rower;
         this.lokalizacja = lokalizacja;
         this.czasWypozyczenia = czasWypozyczenia;
@@ -137,13 +134,6 @@ public class Uzytkownik {
         this.miasto = miasto;
     }
 
-    public List<Rower> getHistoriaWypozyczen() {
-        return historiaWypozyczen;
-    }
-
-    public void setHistoriaWypozyczen(List<Rower> historiaWypozyczen) {
-        this.historiaWypozyczen = historiaWypozyczen;
-    }
 
     public Rower getRower() {
         return rower;
