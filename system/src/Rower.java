@@ -34,10 +34,10 @@ public class Rower {
         this.czyWypozyczony = czyWypozyczony;
     }
 
-    public Rower(int nrRoweru, int kodObreczy, boolean czyWypozyczony) {
+    public Rower(int nrRoweru, int kodObreczy) {
         this.nrRoweru = nrRoweru;
         this.kodObreczy = kodObreczy;
-        this.czyWypozyczony = czyWypozyczony;
+        this.czyWypozyczony = false;
     }
     //Metody-----------------------------------------------------------------------------------------------------------
 }

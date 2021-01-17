@@ -4,15 +4,15 @@
  * tylko nazwy, w innym tylko odległości.
  */
 public class Pair {
-    private String nazwaStacji;
+    private StacjaRowerowa najblizszaStacja;
     private double odlegloscOdStacji;
 
-    public String getNazwaStacji() {
-        return nazwaStacji;
+    public StacjaRowerowa getNajblizszaStacja() {
+        return najblizszaStacja;
     }
 
-    public void setNazwaStacji(String nazwaStacji) {
-        this.nazwaStacji = nazwaStacji;
+    public void setNajblizszaStacja(StacjaRowerowa najblizszaStacja) {
+        this.najblizszaStacja = najblizszaStacja;
     }
 
     public double getOdlegloscOdStacji() {

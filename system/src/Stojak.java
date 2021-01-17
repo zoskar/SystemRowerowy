@@ -26,8 +26,8 @@ public class Stojak {
         this.rowery = rowery;
     }
 
-    public Stojak(boolean czyWolny, Stack<Rower> rowery) {
-        this.czyWolny = czyWolny;
+    public Stojak(Stack<Rower> rowery) {
+        this.czyWolny = true;
         this.rowery = rowery;
     }
     //Metody------------------------------------------------------------------------------------------------------------
