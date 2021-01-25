@@ -133,7 +133,7 @@ public class StacjaRowerowa {
                 return stojak.getRowery().pop();
             }
         }
-        System.out.println("Rower o podanym numerze nie znajduje się na stacji na ktrórej jest użytkownik lub rower" +
+        System.out.println("Rower o podanym numerze nie znajduje się na stacji na ktrórej jest użytkownik lub rower " +
                 "nie jest ostatni w danym stojaku");
         return null;
     }

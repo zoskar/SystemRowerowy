@@ -7,6 +7,7 @@ public class SystemRowerowy {
 
     private List<Rower> listaWypozyczonychRowerow;
     private List<StacjaRowerowa> stacjeRowerowe;
+
     public List<Rower> getListaWypozyczonychRowerow() {
         return listaWypozyczonychRowerow;
     }

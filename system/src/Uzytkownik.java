@@ -67,10 +67,13 @@ public class Uzytkownik {
                 if (najblizszaStacja.przyjmijRower(this.rower)){
                     this.systemRowerowy.getListaWypozyczonychRowerow().remove(this.rower);//usuniecie roweru z listy wypozyczonych rowerów
                     //czy to można tak robić?
+                    System.out.print("Udało się zwrócić rower o numerze: ");
+                    System.out.println(rower.getNrRoweru());
                     this.rower = null;
                     //zmniejszenie salda
                     saldo.pomniejsz(this.czasWypozyczenia);
                     //reset zegara wypożyczenia
+                    System.out.println("Czas wypożyczenia: " +czasWypozyczenia);
                     this.czasWypozyczenia = 0;
                 }
                 // stacja nie ma wolnych miejsc
