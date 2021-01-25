@@ -1,9 +1,16 @@
 import java.awt.*;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new GuiTest().displayGUI();
+            }
+        });
 
         List<Rower> rowery = genRower();
 
@@ -13,15 +20,15 @@ public class Test {
 
         List<StacjaRowerowa> stacjaRowerowaList = genStacjeRowerowe(stojakList);
 
-        SystemRowerowy systemRowerowy = new SystemRowerowy(new ArrayList<>(),stacjaRowerowaList);
+        SystemRowerowy systemRowerowy = new SystemRowerowy(new ArrayList<>(), stacjaRowerowaList);
 
         Miasto miasto = new Miasto(systemRowerowy, "Lublin");
 
-        int [] lokalizacja = {22,22};
+        int[] lokalizacja = {22, 22};
 
         Saldo saldo = new Saldo(10);
 
-        Uzytkownik uzytkownik = new Uzytkownik(1,miasto,lokalizacja,saldo);
+        Uzytkownik uzytkownik = new Uzytkownik(1, miasto, lokalizacja, saldo);
 
         uzytkownik.jakaNajblizszaStacja();
         uzytkownik.wypozyczRower(51);
@@ -51,30 +58,33 @@ public class Test {
 //        mati.oddajRower();
 //        System.out.println(mati.maRower());
     }
-    public static List<Rower> genRower(){
+
+    public static List<Rower> genRower() {
         List<Rower> list = new ArrayList<>();
-        list.add(new Rower(10,2797));
+        list.add(new Rower(10, 2797));
         int kod;
         Random random = new Random();
 
         for (int i = 10; i < 89; i++) {
             kod = 1000 + random.nextInt(9000);
-            list.add(new Rower(i,kod));
+            list.add(new Rower(i, kod));
         }
         return list;
     }
-    public static List<Stack<Rower>> genStacks(List<Rower> list){
+
+    public static List<Stack<Rower>> genStacks(List<Rower> list) {
         List<Stack<Rower>> stackList = new ArrayList<>();
         Stack<Rower> stack;
         for (int i = 0; i < 40; i++) {
             stack = new Stack<>();
             stack.push(list.get(i));
-            stack.push(list.get(i+40));
+            stack.push(list.get(i + 40));
             stackList.add(stack);
         }
         return stackList;
     }
-    public static List<Stojak> genStojaki(List<Stack<Rower>> stacks){
+
+    public static List<Stojak> genStojaki(List<Stack<Rower>> stacks) {
         List<Stojak> stojakList = new ArrayList<>();
         Stojak stojak;
         for (int i = 0; i < 40; i++) {
@@ -83,24 +93,34 @@ public class Test {
         }
         return stojakList;
     }
-    public static List<StacjaRowerowa> genStacjeRowerowe(List<Stojak> stojakList){
-        List<String> names = new ArrayList<>(Arrays.asList("Staszic","3go Maja","Podzamcze","Muzyczna", "PKP",
+
+    public static List<StacjaRowerowa> genStacjeRowerowe(List<Stojak> stojakList) {
+        List<String> names = new ArrayList<>(Arrays.asList("Staszic", "3go Maja", "Podzamcze", "Muzyczna", "PKP",
                 "Brama Krakowska", "Politechnika", "UMCS", "KUL", "Dolna Panny Marii"));
 
         List<StacjaRowerowa> stacjaRowerowaList = new ArrayList<>();
         StacjaRowerowa stacjaRowerowa;
         List<Stojak> stojakList1;
-        for (int i = 0; i < 10; i++)  {
+        for (int i = 0; i < 10; i++) {
             stojakList1 = new ArrayList<>();
             for (int j = 0; j < 4; j++) {
-                stojakList1.add(stojakList.get(i+10*j));
+                stojakList1.add(stojakList.get(i + 10 * j));
             }
-            stacjaRowerowa = new StacjaRowerowa(stojakList1,i*10,i*10,names.get(i));//TODO współrzędne zgodne z GUI
+            stacjaRowerowa = new StacjaRowerowa(stojakList1, i * 10, i * 10, names.get(i));//TODO współrzędne zgodne z GUI
             stacjaRowerowaList.add(stacjaRowerowa);
         }
         return stacjaRowerowaList;
     }
+
 }
+
+
+
+
+
+
+
+
 
 
 
