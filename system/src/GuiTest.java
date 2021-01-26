@@ -1,6 +1,7 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,7 @@ public class GuiTest extends JComponent{
         private Thread thread;
 
         void displayGUI() {
+
             // Generowanie obiektów do GUI
             java.util.List<Rower> rowery = Test.genRower();
             java.util.List<Stack<Rower>> stackList = Test.genStacks(rowery);
@@ -32,18 +34,6 @@ public class GuiTest extends JComponent{
             Saldo saldo = new Saldo(10);
             Uzytkownik user = new Uzytkownik(1, miasto, lokalizacja, saldo);
 
-
-            /* TODO:
-
-            funkcjonalność przycisków
-
-            wyświetlanie danych o użytkowniku, rowerze, ID, saldo
-
-            zabezpieczenie współrzędnych użytkownika przed wyjściem poza mapę
-
-            mierzenie czasu
-
-            opcjonalnie: pokazać użytkownikowi gdzie jest na mapie */
 
             int x = 12, y = 222, szer = 150, wys = 90;
             int vShift = 100; // vertical
@@ -84,7 +74,6 @@ public class GuiTest extends JComponent{
             gridLayoutPrawyGorny.setVgap(15);
             gridLayoutPrawyGorny.setHgap(5);
 
-
             // Panele i obramówki do paneli
             JPanel panelMaly = new JPanel(gridLayoutInformacje);
             JPanel panelPrawyGorny = new JPanel(gridLayoutPrawyGorny);
@@ -95,14 +84,14 @@ public class GuiTest extends JComponent{
             panelPrawyGorny.setBorder(BorderFactory.createTitledBorder("Info"));
 
             // Pola wyświetlania mały panel informacji
-            JTextArea rowerWyswietlanie = new JTextArea();
-            JTextArea nrRoweruWyswietlanie = new JTextArea();
-            JTextArea czasWyswietlanie = new JTextArea();
-            JTextArea lokalizacjaWyswietlanie = new JTextArea();
+            JTextPane rowerWyswietlanie = new JTextPane();
+            JTextPane nrRoweruWyswietlanie = new JTextPane();
+            JTextPane czasWyswietlanie = new JTextPane();
+            JTextPane lokalizacjaWyswietlanie = new JTextPane();
 
             // Pola wyświetlania panel prawy górny róg
-            JTextArea idWyswietlanie = new JTextArea();
-            JTextArea saldoWyswietlanie = new JTextArea();
+            JTextPane idWyswietlanie = new JTextPane();
+            JTextPane saldoWyswietlanie = new JTextPane();
             rowerWyswietlanie.setEditable(false);
             nrRoweruWyswietlanie.setEditable(false);
             czasWyswietlanie.setEditable(false);
@@ -110,22 +99,51 @@ public class GuiTest extends JComponent{
             idWyswietlanie.setEditable(false);
             saldoWyswietlanie.setEditable(false);
 
+            // Centrowanie napisów w panelach
+            JPanel panelRowerWyswietlanieCenter = new JPanel(new GridLayout(0,1));
+            rowerWyswietlanie.setBorder(new EmptyBorder(7,17,5,3));
+            panelRowerWyswietlanieCenter.add(rowerWyswietlanie);
+
+            JPanel panelNrRoweruWyswietlanieCenter = new JPanel(new GridLayout(0,1));
+            nrRoweruWyswietlanie.setBorder(new EmptyBorder(8,24,5,3));
+            panelNrRoweruWyswietlanieCenter.add(nrRoweruWyswietlanie);
+
+            JPanel panelCzasWyswietlanieCenter = new JPanel(new GridLayout(0,1));
+            czasWyswietlanie.setBorder(new EmptyBorder(8,24,5,3));
+            panelCzasWyswietlanieCenter.add(czasWyswietlanie);
+
+            JPanel panelLokalizacjaWyswietlanieCenter = new JPanel(new GridLayout(0,1));
+            lokalizacjaWyswietlanie.setBorder(new EmptyBorder(7,4,5,3));
+            panelLokalizacjaWyswietlanieCenter.add(lokalizacjaWyswietlanie);
+
+            JPanel panelIdWyswietlenieCenter = new JPanel(new GridLayout(0,1));
+            idWyswietlanie.setBorder(new EmptyBorder(7,30,5,3));
+            panelIdWyswietlenieCenter.add(idWyswietlanie);
+
+            JPanel panelSaldoWyswietlenieCenter = new JPanel(new GridLayout(0,1));
+            saldoWyswietlanie.setBorder(new EmptyBorder(7,25,5,3));
+            panelSaldoWyswietlenieCenter.add(saldoWyswietlanie);
+
+
             // Dodawanie do panela małego z obramówką
             panelMaly.add(new JLabel("Rower: "));
-            panelMaly.add(rowerWyswietlanie);
+            panelMaly.add(panelRowerWyswietlanieCenter);
             panelMaly.add(new JLabel("Nr roweru: "));
-            panelMaly.add(nrRoweruWyswietlanie);
+            panelMaly.add(panelNrRoweruWyswietlanieCenter);
             panelMaly.add(new JLabel("Czas: "));
-            panelMaly.add(czasWyswietlanie);
+            panelMaly.add(panelCzasWyswietlanieCenter);
             panelMaly.add(new JLabel("Pozycja: "));
-            panelMaly.add(lokalizacjaWyswietlanie);
+            panelMaly.add(panelLokalizacjaWyswietlanieCenter);
 
             // Dodawanie do panela prawy górny róg z obramówką
             panelPrawyGorny.add(new JLabel("ID: "));
-            panelPrawyGorny.add(idWyswietlanie);
+            panelPrawyGorny.add(panelIdWyswietlenieCenter);
             panelPrawyGorny.add(new JLabel("Saldo: "));
-            panelPrawyGorny.add(saldoWyswietlanie);
+            panelPrawyGorny.add(panelSaldoWyswietlenieCenter);
 
+            // Użytkownik na mapie
+            JPanel marker = new JPanel(null);
+            marker.setBackground(new Color(255,128,0));
 
             // Dodawanie do głównego panelu
 
@@ -137,7 +155,8 @@ public class GuiTest extends JComponent{
             contentPane.add(panelMaly);
             contentPane.add(panelPrawyGorny);
             contentPane.add(miastoNapis);
-            contentPane.addMouseListener(new MouseAdapter() {
+            contentPane.add(marker);
+            frame.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     PointerInfo a = MouseInfo.getPointerInfo();
@@ -149,10 +168,10 @@ public class GuiTest extends JComponent{
                     lokalizacjaUzytkownika[0] = x1;
                     lokalizacjaUzytkownika[1] = y1;
                     user.setLokalizacja(lokalizacjaUzytkownika);
-                    lokalizacjaWyswietlanie.setText("(" +x1 +","+y1+")"); // todo pole uzytkownika :D
-                    repaint();
-                    System.out.println(Arrays.toString(user.getLokalizacja()));
-                    System.out.println("X: "+ x1 + ", Y: "+ y1);
+                    lokalizacjaWyswietlanie.setText("(" +x1 +","+y1+")");
+                    marker.setBounds(x1-10, y1-34, 20, 20);
+//                    System.out.println(Arrays.toString(user.getLokalizacja()));
+//                    System.out.println("X: "+ x1 + ", Y: "+ y1);
 
                 }
             });
@@ -300,11 +319,11 @@ public class GuiTest extends JComponent{
             ActionListener kontaktAkcja = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(contentPane, "Created by mojito1","Kontakt", JOptionPane.INFORMATION_MESSAGE);
+                    String msg = """
+                    Autorzy projektu: Mateusz Mianowny, Rafał Wolter, Oscar Zając.""";
+                    JOptionPane.showMessageDialog(contentPane, msg,"Kontakt", JOptionPane.INFORMATION_MESSAGE);
                 }
             };
-
-
 
 
             // Dodanie funkcjonalności do przycisków
@@ -313,8 +332,6 @@ public class GuiTest extends JComponent{
             buttonNajblizszaStacja.addActionListener(najblizszaStacjaAkcja);
             buttonKodObreczy.addActionListener(kodObreczyAkcja);
             buttonKontakt.addActionListener(kontaktAkcja);
-
-
 
 
             frame.setResizable(false);
@@ -336,7 +353,6 @@ public class GuiTest extends JComponent{
                 try {
                     image = ImageIO.read(MyPanel.class.getResource("/resources/images/bg_final.jpg"));
 
-
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
                 }
@@ -346,18 +362,8 @@ public class GuiTest extends JComponent{
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-//                PointerInfo a = MouseInfo.getPointerInfo();
-//                Point point = new Point(a.getLocation());
-//                SwingUtilities.convertPointFromScreen(point, e.getComponent());
-//                int x=(int) point.getX();
-//                int y=(int) point.getY();
-//                int [] lokalizacjaUzytkownika = new int[2];
-                g.drawImage(image, 175, 90, this); // uzytkownik nie przekrocza
-                g.fillOval(x1, y1, 20,20);
-
-
-
-
+                g.drawImage(image, 175, 90, this);
+//                g.fillOval(x1, y1, 20, 20);
             }
         }
 

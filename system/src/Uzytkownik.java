@@ -38,7 +38,6 @@ public class Uzytkownik {
                 //jeżeli udało się wypożyczyć rower
                 if (maRower()){
                     systemRowerowy.getListaWypozyczonychRowerow().add(rower);
-                    // TODO wystartowanie timera w GUI
                 }
             }
             else {
@@ -76,9 +75,6 @@ public class Uzytkownik {
                 else {
                     throw new PelnaStacjaException("Stacja przy ktorej stoisz jest pełna\n" +
                             "Najbliższa stacja z wolnymi miejscami to: " + jakaNajblizszaStacja().getNazwaStacji());
-//                    System.out.println("Stacja przy ktorej stoisz jest pełna");
-//                    System.out.print("Najbliższa stacja z wolnymi miejscami to: ");
-//                    jakaNajblizszaStacja();
                 }
 
             }

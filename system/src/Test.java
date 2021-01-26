@@ -12,26 +12,6 @@ public class Test {
             }
         });
 
-        java.util.List<Rower> rowery = Test.genRower();
-        java.util.List<Stack<Rower>> stackList = Test.genStacks(rowery);
-        java.util.List<Stojak> stojakList = Test.genStojaki(stackList);
-        List<StacjaRowerowa> stacjaRowerowaList = Test.genStacjeRowerowe(stojakList);
-        SystemRowerowy systemRowerowy = new SystemRowerowy(new ArrayList<>(), stacjaRowerowaList);
-        Miasto miasto = new Miasto(systemRowerowy, "Lublin");
-        int[] lokalizacja = {275, 300};
-        Saldo saldo = new Saldo(10);
-        Uzytkownik user = new Uzytkownik(1, miasto, lokalizacja, saldo);
-
-        System.out.println(user.maRower());
-        user.wypozyczRower(56);
-        System.out.println(user.maRower());
-        user.oddajRower();
-        System.out.println(user.maRower());
-
-
-
-
-
     }
 
     public static List<Rower> genRower() {
@@ -70,7 +50,7 @@ public class Test {
     }
 
     public static List<StacjaRowerowa> genStacjeRowerowe(List<Stojak> stojakList) {
-        List<String> names = new ArrayList<>(Arrays.asList("Staszic",  "Podzamcze", "Muzyczna", "Brama Krakowska",
+        List<String> names = new ArrayList<>(Arrays.asList("Staszic",  "Podzamcze", "Płońsk", "Brama Krakowska",
                 "Politechnika", "UMCS", "KUL", "Dolna Panny Marii"));
         List<Integer> X = new ArrayList<>(Arrays.asList(470, 936, 845, 625, 635, 275, 275, 925));
         List<Integer> Y = new ArrayList<>(Arrays.asList(380, 262, 564, 240, 550, 570, 300, 680));

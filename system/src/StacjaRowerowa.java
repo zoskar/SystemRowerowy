@@ -96,7 +96,7 @@ public class StacjaRowerowa {
      */
     public boolean przyjmijRower(Rower rower) {
         if (this.wolneMiejsca <= 0){
-            System.out.println("Brak miejsc, wyszukaj stację");//można tu automatycznie uruchomic metode wyszukajStacje
+//            System.out.println("Brak miejsc, wyszukaj stację");//można tu automatycznie uruchomic metode wyszukajStacje
             return false;
         }
         else {
@@ -130,18 +130,12 @@ public class StacjaRowerowa {
             //jeśli znaleźliśmy rower o podanym numerze
             if (stojak.getRowery().peek().getNrRoweru() == nrRoweru) {
                 //jeśli użytkownik wypożycza rower który jest przypięty obręczą podajemu mu kod obręczy
-                if (stojak.getRowery().size() > 1) {
-                    System.out.println("Kod obręczy: " + stojak.getRowery().peek().getKodObreczy());
-                }
-                System.out.println("Szerokiej drogi");
                 if(stojak.getRowery().size() == 1) {
                     stojak.setCzyPusty(true);
                 }
                 return stojak.getRowery().pop();
             }
         }
-        System.out.println("Rower o podanym numerze nie znajduje się na stacji na ktrórej jest użytkownik lub rower " +
-                "nie jest ostatni w danym stojaku");
         return null;
     }
 }
