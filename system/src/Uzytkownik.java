@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class Uzytkownik {
 
     private int userID;
@@ -109,9 +107,11 @@ public class Uzytkownik {
 
     /**
      * Metoda wyświetlająca użytkownikowi nazwę najbliższej mu stacji rowerowej
+     * @return
      */
-    public void jakaNajblizszaStacja() {
+    public StacjaRowerowa jakaNajblizszaStacja() {
         System.out.println(this.systemRowerowy.najblizszaStacja(lokalizacja, maRower()).getNajblizszaStacja().getNazwaStacji());
+        return this.systemRowerowy.najblizszaStacja(lokalizacja, maRower()).getNajblizszaStacja();
     }
 
     public int sprawdzKodObreczy(){

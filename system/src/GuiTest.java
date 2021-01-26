@@ -9,15 +9,26 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
 
-    public class GuiTest {
+public class GuiTest {
 
         private MyPanel contentPane;
 
         void displayGUI() {
-            //tu bedzie back
-
-
+            // Generowanie obiektów do GUI
+            java.util.List<Rower> rowery = Test.genRower();
+            java.util.List<Stack<Rower>> stackList = Test.genStacks(rowery);
+            java.util.List<Stojak> stojakList = Test.genStojaki(stackList);
+            List<StacjaRowerowa> stacjaRowerowaList = Test.genStacjeRowerowe(stojakList);
+            SystemRowerowy systemRowerowy = new SystemRowerowy(new ArrayList<>(), stacjaRowerowaList);
+            Miasto miasto = new Miasto(systemRowerowy, "Lublin");
+            int[] lokalizacja = {22, 22};
+            Saldo saldo = new Saldo(10);
+            Uzytkownik uzytkownik = new Uzytkownik(1, miasto, lokalizacja, saldo);
 
 
             /* TODO:
@@ -43,9 +54,9 @@ import java.io.IOException;
             contentPane.setPreferredSize(new Dimension(1024, 750));
 
             // Napis Lublin
-            JLabel miasto = new JLabel("Lublin");
-            miasto.setBounds(480,29,300,50);
-            miasto.setFont(czcionka);
+            JLabel miastoNapis = new JLabel("Lublin");
+            miastoNapis.setBounds(480,29,300,50);
+            miastoNapis.setFont(czcionka);
 
             // Przyciski pod Informacjami o użytkowniku
             JButton buttonWypozyczRower = new JButton("Wypożycz rower");
@@ -123,7 +134,7 @@ import java.io.IOException;
             contentPane.add(buttonKontakt);
             contentPane.add(panelMaly);
             contentPane.add(panelPrawyGorny);
-            contentPane.add(miasto);
+            contentPane.add(miastoNapis);
             contentPane.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -132,7 +143,12 @@ import java.io.IOException;
                     SwingUtilities.convertPointFromScreen(point, e.getComponent());
                     int x=(int) point.getX();
                     int y=(int) point.getY();
+                    int [] lokalizacjaUzytkownika = new int[2];
+                    lokalizacjaUzytkownika[0] = x;
+                    lokalizacjaUzytkownika[1] = y;
+                    uzytkownik.setLokalizacja(lokalizacjaUzytkownika);
                     lokalizacjaWyswietlanie.setText("(" +x +","+y+")"); // todo pole uzytkownika :D
+                    System.out.println(Arrays.toString(uzytkownik.getLokalizacja()));
                     System.out.println("X: "+ x + ", Y: "+ y);
                 }
             });
@@ -142,9 +158,10 @@ import java.io.IOException;
             ActionListener wypozyczRowerAkcja = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //TODO Metoda wypozyczRower uzytkownik
                     String wypozyczRowerInfo = "Pomyślnie wypożyczono rower"; //TODO tutaj uzupełnić
-                    JOptionPane.showMessageDialog(contentPane, wypozyczRowerInfo,"Wypożyczenie roweru", JOptionPane.INFORMATION_MESSAGE);
+                    String opcja = (String) JOptionPane.showInputDialog(contentPane, "Wpisz kod roweru: ");
+                    System.out.println(opcja);
+
                 }
             };
             ActionListener oddajRowerAkcja = new ActionListener() {

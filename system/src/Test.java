@@ -12,30 +12,6 @@ public class Test {
             }
         });
 
-        List<Rower> rowery = genRower();
-
-        List<Stack<Rower>> stackList = genStacks(rowery);
-
-        List<Stojak> stojakList = genStojaki(stackList);
-
-        List<StacjaRowerowa> stacjaRowerowaList = genStacjeRowerowe(stojakList);
-
-        SystemRowerowy systemRowerowy = new SystemRowerowy(new ArrayList<>(), stacjaRowerowaList);
-
-        Miasto miasto = new Miasto(systemRowerowy, "Lublin");
-
-        int[] lokalizacja = {22, 22};
-
-        Saldo saldo = new Saldo(10);
-
-        Uzytkownik uzytkownik = new Uzytkownik(1, miasto, lokalizacja, saldo);
-        List<Integer> X = new ArrayList<>(Arrays.asList(470, 936, 845, 625, 635, 275, 275, 925));
-        List<Integer> Y = new ArrayList<>(Arrays.asList(380, 262, 564, 240, 550, 570, 300, 680));
-        for (int i = 0; i < 8; i++) {
-            lokalizacja[0] = X.get(i);
-            lokalizacja[1] = Y.get(i);
-            uzytkownik.jakaNajblizszaStacja();
-        }
 
 
 
