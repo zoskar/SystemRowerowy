@@ -17,6 +17,7 @@ import java.util.Stack;
 public class GuiTest {
 
         private MyPanel contentPane;
+        private Thread thread;
 
         void displayGUI() {
             // Generowanie obiektów do GUI
@@ -184,6 +185,13 @@ public class GuiTest {
 
                             try {
                                 user.wypozyczRower(Integer.parseInt(opcja));
+                                thread = new Thread() {
+                                    @Override
+                                    public void run() {
+
+                                    }
+
+                                };
                                 rowerWyswietlanie.setText(String.valueOf(user.maRower()));
                                 nrRoweruWyswietlanie.setText(String.valueOf(user.getRower().getNrRoweru()));
                                 JOptionPane.showMessageDialog(contentPane, "Szerokiej drogi","Pomyślne wypożyczenie roweru",JOptionPane.INFORMATION_MESSAGE);
