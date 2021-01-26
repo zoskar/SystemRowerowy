@@ -151,6 +151,7 @@ public class GuiTest {
                     lokalizacjaWyswietlanie.setText("(" +x +","+y+")"); // todo pole uzytkownika :D
                     System.out.println(Arrays.toString(user.getLokalizacja()));
                     System.out.println("X: "+ x + ", Y: "+ y);
+
                 }
             });
             contentPane.setLayout(null);
@@ -184,14 +185,25 @@ public class GuiTest {
                             String opcja = (String) JOptionPane.showInputDialog(contentPane, info,wypozyczRowerInfo);
 
                             try {
+
                                 user.wypozyczRower(Integer.parseInt(opcja));
                                 thread = new Thread() {
                                     @Override
                                     public void run() {
-
+                                        int czas = 0;
+                                        while(!Thread.currentThread().isInterrupted() && user.maRower()) {
+                                            czasWyswietlanie.setText(String.valueOf(czas));
+                                            czas += 1;
+                                            try {
+                                                Thread.sleep(1000);
+                                            } catch (InterruptedException interruptedException) {
+                                                break;
+                                            }
+                                        }
                                     }
 
                                 };
+                                thread.start();
                                 rowerWyswietlanie.setText(String.valueOf(user.maRower()));
                                 nrRoweruWyswietlanie.setText(String.valueOf(user.getRower().getNrRoweru()));
                                 JOptionPane.showMessageDialog(contentPane, "Szerokiej drogi","Pomyślne wypożyczenie roweru",JOptionPane.INFORMATION_MESSAGE);
@@ -234,8 +246,19 @@ public class GuiTest {
                             if(potwierdzWybor == 0){
                                 try{
                                     user.oddajRower();
+
+                                    thread.interrupt();
+                                    user.getSaldo().pomniejsz(Integer.parseInt(czasWyswietlanie.getText()));
+                                    saldoWyswietlanie.setText(String.valueOf(user.getSaldo().getKwota()));
+
+
                                     rowerWyswietlanie.setText(String.valueOf(user.maRower()));
+                                    czasWyswietlanie.setText("");
                                     nrRoweruWyswietlanie.setText("");
+
+                                    if(user.getSaldo().getKwota() <= 0 ) {
+                                        JOptionPane.showMessageDialog(contentPane, "Stan twojego konta jest nie większy niż 0", "Uwaga niski stan konta", JOptionPane.WARNING_MESSAGE);
+                                    }
 
                                 } catch (PelnaStacjaException pelnaStacjaException) {
                                     JOptionPane.showMessageDialog(contentPane,pelnaStacjaException.getMessage(),"Pełna stacja",JOptionPane.ERROR_MESSAGE );

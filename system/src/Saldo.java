@@ -15,7 +15,7 @@ public class Saldo {
     }
 
     public void pomniejsz(int czasWypozyczenia){
-        if (czasWypozyczenia <= 15)
+        if (czasWypozyczenia <= 5)
             return;
         this.kwota -= czasWypozyczenia;
     }

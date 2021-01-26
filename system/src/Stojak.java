@@ -4,18 +4,18 @@ public class Stojak {
 
     //Pola-------------------------------------------------------------------------------------------------------------
 
-    private boolean czyWolny;
+    private boolean czyPusty;
 
     private Stack<Rower> rowery;
 
     //Settery, gettery, konstruktory-----------------------------------------------------------------------------------
 
-    public boolean isCzyWolny() {
-        return czyWolny;
+    public boolean isCzyPusty() {
+        return czyPusty;
     }
 
-    public void setCzyWolny(boolean czyWolny) {
-        this.czyWolny = czyWolny;
+    public void setCzyPusty(boolean czyPusty) {
+        this.czyPusty = czyPusty;
     }
 
     public Stack<Rower> getRowery() {
@@ -27,7 +27,7 @@ public class Stojak {
     }
 
     public Stojak(Stack<Rower> rowery) {
-        this.czyWolny = true;
+        this.czyPusty = false;
         this.rowery = rowery;
     }
     //Metody------------------------------------------------------------------------------------------------------------

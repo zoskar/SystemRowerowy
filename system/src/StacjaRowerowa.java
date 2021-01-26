@@ -124,6 +124,9 @@ public class StacjaRowerowa {
     public Rower wydajRower(int nrRoweru){
         //iterujemy po stojakach szukając stojaka z szukanym rowerem
         for (Stojak stojak : stojaki) {
+            if (stojak.isCzyPusty()) {
+                continue;
+            }
             //jeśli znaleźliśmy rower o podanym numerze
             if (stojak.getRowery().peek().getNrRoweru() == nrRoweru) {
                 //jeśli użytkownik wypożycza rower który jest przypięty obręczą podajemu mu kod obręczy
@@ -131,6 +134,9 @@ public class StacjaRowerowa {
                     System.out.println("Kod obręczy: " + stojak.getRowery().peek().getKodObreczy());
                 }
                 System.out.println("Szerokiej drogi");
+                if(stojak.getRowery().size() == 1) {
+                    stojak.setCzyPusty(true);
+                }
                 return stojak.getRowery().pop();
             }
         }
