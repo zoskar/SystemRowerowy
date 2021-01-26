@@ -132,6 +132,7 @@ import java.io.IOException;
                     SwingUtilities.convertPointFromScreen(point, e.getComponent());
                     int x=(int) point.getX();
                     int y=(int) point.getY();
+                    lokalizacjaWyswietlanie.setText("(" +x +","+y+")"); // todo pole uzytkownika :D
                     System.out.println("X: "+ x + ", Y: "+ y);
                 }
             });
@@ -178,6 +179,12 @@ import java.io.IOException;
                     JOptionPane.showMessageDialog(contentPane, wypozyczRowerInfo,"Kontakt", JOptionPane.WARNING_MESSAGE);
                 }
             };
+
+
+
+
+
+
 
 
 
