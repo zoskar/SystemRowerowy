@@ -14,9 +14,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-public class GuiTest {
+public class GuiTest extends JComponent{
 
         private MyPanel contentPane;
+        private int x1,y1;
         private Thread thread;
 
         void displayGUI() {
@@ -142,15 +143,16 @@ public class GuiTest {
                     PointerInfo a = MouseInfo.getPointerInfo();
                     Point point = new Point(a.getLocation());
                     SwingUtilities.convertPointFromScreen(point, e.getComponent());
-                    int x=(int) point.getX();
-                    int y=(int) point.getY();
+                    x1=(int) point.getX();
+                    y1=(int) point.getY();
                     int [] lokalizacjaUzytkownika = new int[2];
-                    lokalizacjaUzytkownika[0] = x;
-                    lokalizacjaUzytkownika[1] = y;
+                    lokalizacjaUzytkownika[0] = x1;
+                    lokalizacjaUzytkownika[1] = y1;
                     user.setLokalizacja(lokalizacjaUzytkownika);
-                    lokalizacjaWyswietlanie.setText("(" +x +","+y+")"); // todo pole uzytkownika :D
+                    lokalizacjaWyswietlanie.setText("(" +x1 +","+y1+")"); // todo pole uzytkownika :D
+                    repaint();
                     System.out.println(Arrays.toString(user.getLokalizacja()));
-                    System.out.println("X: "+ x + ", Y: "+ y);
+                    System.out.println("X: "+ x1 + ", Y: "+ y1);
 
                 }
             });
@@ -342,9 +344,19 @@ public class GuiTest {
 
 
             @Override
-            protected void paintComponent(Graphics g) {
+            public void paintComponent(Graphics g) {
                 super.paintComponent(g);
+//                PointerInfo a = MouseInfo.getPointerInfo();
+//                Point point = new Point(a.getLocation());
+//                SwingUtilities.convertPointFromScreen(point, e.getComponent());
+//                int x=(int) point.getX();
+//                int y=(int) point.getY();
+//                int [] lokalizacjaUzytkownika = new int[2];
                 g.drawImage(image, 175, 90, this); // uzytkownik nie przekrocza
+                g.fillOval(x1, y1, 20,20);
+
+
+
 
             }
         }
