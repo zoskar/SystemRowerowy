@@ -28,7 +28,7 @@ public class GuiTest {
             Miasto miasto = new Miasto(systemRowerowy, "Lublin");
             int[] lokalizacja = {22, 22};
             Saldo saldo = new Saldo(10);
-            Uzytkownik uzytkownik = new Uzytkownik(1, miasto, lokalizacja, saldo);
+            Uzytkownik user = new Uzytkownik(1, miasto, lokalizacja, saldo);
 
 
             /* TODO:
@@ -146,21 +146,68 @@ public class GuiTest {
                     int [] lokalizacjaUzytkownika = new int[2];
                     lokalizacjaUzytkownika[0] = x;
                     lokalizacjaUzytkownika[1] = y;
-                    uzytkownik.setLokalizacja(lokalizacjaUzytkownika);
+                    user.setLokalizacja(lokalizacjaUzytkownika);
                     lokalizacjaWyswietlanie.setText("(" +x +","+y+")"); // todo pole uzytkownika :D
-                    System.out.println(Arrays.toString(uzytkownik.getLokalizacja()));
+                    System.out.println(Arrays.toString(user.getLokalizacja()));
                     System.out.println("X: "+ x + ", Y: "+ y);
                 }
             });
             contentPane.setLayout(null);
 
+            // Ustawienie labelów
+            rowerWyswietlanie.setText(String.valueOf(user.maRower()));
+
+
             // Funkcjonalność przycisków
             ActionListener wypozyczRowerAkcja = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String wypozyczRowerInfo = "Pomyślnie wypożyczono rower"; //TODO tutaj uzupełnić
-                    String opcja = (String) JOptionPane.showInputDialog(contentPane, "Wpisz kod roweru: ");
-                    System.out.println(opcja);
+
+                    if(!user.maRower()){
+
+                        Pair stacjaObokUzytkownika = user.getSystemRowerowy().najblizszaStacja(user.getLokalizacja(),user.maRower());
+                        if(stacjaObokUzytkownika.getOdlegloscOdStacji() <= 35){
+                            StringBuilder info = new StringBuilder("Stacja: " + stacjaObokUzytkownika.getNajblizszaStacja().getNazwaStacji() +
+                                    "\nDostępne rowery na stacji: \n") ;
+                            for (int i = 0; i < stacjaObokUzytkownika.getNajblizszaStacja().getStojaki().size(); i++) {
+                                    info.append("Stojak ").append(i).append(": ");
+                                for (int j = 0; j < stacjaObokUzytkownika.getNajblizszaStacja().getStojaki().get(i).ileRowerow() ; j++) {
+                                    info.append(stacjaObokUzytkownika.getNajblizszaStacja().getStojaki().get(i).getRowery().get(j).getNrRoweru()).append(", ");
+                                }
+                                info.append("\n");
+                            }
+
+                            String wypozyczRowerInfo = "Numer roweru"; //TODO tutaj uzupełnić
+                            String opcja = (String) JOptionPane.showInputDialog(contentPane, info,wypozyczRowerInfo);
+
+                            try {
+                                user.wypozyczRower(Integer.parseInt(opcja));
+                                rowerWyswietlanie.setText(String.valueOf(user.maRower()));
+                                nrRoweruWyswietlanie.setText(String.valueOf(user.getRower().getNrRoweru()));
+                                JOptionPane.showMessageDialog(contentPane, "Szerokiej drogi","Pomyślne wypożyczenie roweru",JOptionPane.INFORMATION_MESSAGE);
+                            }
+                            catch (NullPointerException e1){
+                                String msg = "Rower o podanym numerze nie znajduje się na stacji na ktrórej jest użytkownik lub rower " +
+                                        "nie jest ostatni w danym stojaku";
+                                JOptionPane.showMessageDialog(contentPane, msg,"Błąd wypożyczania",JOptionPane.ERROR_MESSAGE);
+                            }
+                            catch (NumberFormatException e2) {
+                                String msg = "Przerwano wypożyczanie roweru";
+                                JOptionPane.showMessageDialog(contentPane, msg,"Przerwanie wypożyczania",JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+
+                        else{
+                            JOptionPane.showMessageDialog(contentPane, "Jesteś za daleko od stacji!","Za daleko od stacji",JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+
+                    else{
+
+                        JOptionPane.showMessageDialog(contentPane,"Masz już wypożyczony rower","Wypożyczony rower",JOptionPane.ERROR_MESSAGE );
+                    }
+
+
 
                 }
             };
