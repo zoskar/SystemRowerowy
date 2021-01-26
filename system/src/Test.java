@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.List;
 
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PelnaStacjaException {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -12,31 +12,26 @@ public class Test {
             }
         });
 
+        java.util.List<Rower> rowery = Test.genRower();
+        java.util.List<Stack<Rower>> stackList = Test.genStacks(rowery);
+        java.util.List<Stojak> stojakList = Test.genStojaki(stackList);
+        List<StacjaRowerowa> stacjaRowerowaList = Test.genStacjeRowerowe(stojakList);
+        SystemRowerowy systemRowerowy = new SystemRowerowy(new ArrayList<>(), stacjaRowerowaList);
+        Miasto miasto = new Miasto(systemRowerowy, "Lublin");
+        int[] lokalizacja = {275, 300};
+        Saldo saldo = new Saldo(10);
+        Uzytkownik user = new Uzytkownik(1, miasto, lokalizacja, saldo);
+
+        System.out.println(user.maRower());
+        user.wypozyczRower(56);
+        System.out.println(user.maRower());
+        user.oddajRower();
+        System.out.println(user.maRower());
 
 
 
 
 
-//        Stack<Rower> stack = new Stack<>();
-//        stack.push(rower01);
-//        Stojak stojak1 = new Stojak(stack);
-//        List<Stojak> stojakList = new ArrayList<>();
-//        stojakList.add(stojak1);
-//        StacjaRowerowa staszic = new StacjaRowerowa(stojakList,68,421,"STASZIC");
-//        List<Rower> rowerList = new ArrayList<>();
-//        List<StacjaRowerowa> stacjeRowerowaList = new ArrayList<>();
-//        stacjeRowerowaList.add(staszic);
-//        SystemRowerowy systemRowerowy = new SystemRowerowy(rowerList,stacjeRowerowaList);
-//        Miasto miasto = new Miasto(systemRowerowy,"Lublin");
-//        int [] lokalizacja = {0,423};
-//        Uzytkownik mati = new Uzytkownik(1234,miasto,lokalizacja,new Saldo(10));
-//        System.out.println(mati.maRower());
-//        mati.wypozyczRower(1234);
-//        System.out.println(mati.maRower());
-//        System.out.println(mati.sprawdzKodObreczy());
-//        System.out.println(systemRowerowy.getListaWypozyczonychRowerow());
-//        mati.oddajRower();
-//        System.out.println(mati.maRower());
     }
 
     public static List<Rower> genRower() {

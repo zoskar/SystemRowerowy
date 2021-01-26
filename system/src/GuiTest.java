@@ -156,6 +156,8 @@ public class GuiTest {
 
             // Ustawienie labelów
             rowerWyswietlanie.setText(String.valueOf(user.maRower()));
+            idWyswietlanie.setText(String.valueOf(user.getUserID()));
+            saldoWyswietlanie.setText(String.valueOf(user.getSaldo()));
 
 
             // Funkcjonalność przycisków
@@ -177,7 +179,7 @@ public class GuiTest {
                                 info.append("\n");
                             }
 
-                            String wypozyczRowerInfo = "Numer roweru"; //TODO tutaj uzupełnić
+                            String wypozyczRowerInfo = "Numer roweru";
                             String opcja = (String) JOptionPane.showInputDialog(contentPane, info,wypozyczRowerInfo);
 
                             try {
@@ -208,15 +210,41 @@ public class GuiTest {
                     }
 
 
-
                 }
             };
             ActionListener oddajRowerAkcja = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //TODO Metoda oddaj rower uzytkownik
-                    String wypozyczRowerInfo = "Pomyślnie oddano rower"; //TODO tutaj uzupełnić
-                    JOptionPane.showMessageDialog(contentPane, wypozyczRowerInfo,"Oddanie roweru", JOptionPane.INFORMATION_MESSAGE);
+                    if(user.maRower()){
+
+                        Pair stacjaObokUzytkownika = user.getSystemRowerowy().najblizszaStacja(user.getLokalizacja(),user.maRower());
+                        if(stacjaObokUzytkownika.getOdlegloscOdStacji() <= 35){
+                            String info = "Czy chcesz oddać rower na stację: " + stacjaObokUzytkownika.getNajblizszaStacja().getNazwaStacji();
+                            Object[] options = {"Tak",
+                                    "Nie!"};
+                            int potwierdzWybor = JOptionPane.showOptionDialog(contentPane,info,"Potwierdzenie oddania",JOptionPane.YES_NO_OPTION,
+                                    JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+                            if(potwierdzWybor == 0){
+                                try{
+                                    user.oddajRower();
+                                    rowerWyswietlanie.setText(String.valueOf(user.maRower()));
+                                    nrRoweruWyswietlanie.setText("");
+
+                                } catch (PelnaStacjaException pelnaStacjaException) {
+                                    JOptionPane.showMessageDialog(contentPane,pelnaStacjaException.getMessage(),"Pełna stacja",JOptionPane.ERROR_MESSAGE );
+                                }
+                            }
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(contentPane, "Jesteś za daleko od stacji!","Za daleko od stacji",JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(contentPane,"Nie masz wypożyczonego roweru","Brak wypożyczonego roweru",JOptionPane.ERROR_MESSAGE );
+                    }
+
+
+
                 }
             };
             ActionListener najblizszaStacjaAkcja = new ActionListener() {

@@ -51,15 +51,13 @@ public class Uzytkownik {
         }
 
     }
-    public void oddajRower(){
+    public void oddajRower() throws PelnaStacjaException {
         if(maRower()){
             Pair para = this.systemRowerowy.najblizszaStacja(this.lokalizacja, maRower());
             StacjaRowerowa najblizszaStacja = para.getNajblizszaStacja();
             double odlegloscOdStacji = para.getOdlegloscOdStacji();
             if (odlegloscOdStacji <= 35){
                 System.out.println("Czy chcesz oddać rower w stacji: " + najblizszaStacja.getNazwaStacji() + "?");
-                //wyswietlenie przycisków
-                boolean wybor = true; //wybor użytkownika
 
                 //sprawdzamy czy stacja przyjmie rower (czy ma wolne miejsca)
                 if (najblizszaStacja.przyjmijRower(this.rower)){
@@ -76,9 +74,11 @@ public class Uzytkownik {
                 }
                 // stacja nie ma wolnych miejsc
                 else {
-                    System.out.println("Stacja przy ktorej stoisz jest pełna");
-                    System.out.print("Najbliższa stacja z wolnymi miejscami to: ");
-                    jakaNajblizszaStacja();
+                    throw new PelnaStacjaException("Stacja przy ktorej stoisz jest pełna\n" +
+                            "Najbliższa stacja z wolnymi miejscami to: " + jakaNajblizszaStacja().getNazwaStacji());
+//                    System.out.println("Stacja przy ktorej stoisz jest pełna");
+//                    System.out.print("Najbliższa stacja z wolnymi miejscami to: ");
+//                    jakaNajblizszaStacja();
                 }
 
             }

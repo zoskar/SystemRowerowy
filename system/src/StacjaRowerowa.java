@@ -111,6 +111,7 @@ public class StacjaRowerowa {
                 if (stojak.ileRowerow() == min) {
                     this.wolneMiejsca -= 1;
                     stojak.getRowery().push(rower);
+                    break;
                 }
             }
             return true;
