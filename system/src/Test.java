@@ -29,12 +29,16 @@ public class Test {
         Saldo saldo = new Saldo(10);
 
         Uzytkownik uzytkownik = new Uzytkownik(1, miasto, lokalizacja, saldo);
+        List<Integer> X = new ArrayList<>(Arrays.asList(470, 936, 845, 625, 635, 275, 275, 925));
+        List<Integer> Y = new ArrayList<>(Arrays.asList(380, 262, 564, 240, 550, 570, 300, 680));
+        for (int i = 0; i < 8; i++) {
+            lokalizacja[0] = X.get(i);
+            lokalizacja[1] = Y.get(i);
+            uzytkownik.jakaNajblizszaStacja();
+        }
 
-        uzytkownik.jakaNajblizszaStacja();
-        uzytkownik.wypozyczRower(51);
-        lokalizacja[0] = 90;
-        lokalizacja[1] = 90;
-        uzytkownik.oddajRower();
+
+
 
 
 //        Stack<Rower> stack = new Stack<>();
@@ -61,14 +65,14 @@ public class Test {
 
     public static List<Rower> genRower() {
         List<Rower> list = new ArrayList<>();
-        list.add(new Rower(10, 2797));
         int kod;
         Random random = new Random();
 
-        for (int i = 10; i < 89; i++) {
+        for (int i = 10; i < 90; i++) {
             kod = 1000 + random.nextInt(9000);
             list.add(new Rower(i, kod));
         }
+
         return list;
     }
 
@@ -95,18 +99,20 @@ public class Test {
     }
 
     public static List<StacjaRowerowa> genStacjeRowerowe(List<Stojak> stojakList) {
-        List<String> names = new ArrayList<>(Arrays.asList("Staszic", "3go Maja", "Podzamcze", "Muzyczna", "PKP",
-                "Brama Krakowska", "Politechnika", "UMCS", "KUL", "Dolna Panny Marii"));
+        List<String> names = new ArrayList<>(Arrays.asList("Staszic",  "Podzamcze", "Muzyczna", "Brama Krakowska",
+                "Politechnika", "UMCS", "KUL", "Dolna Panny Marii"));
+        List<Integer> X = new ArrayList<>(Arrays.asList(470, 936, 845, 625, 635, 275, 275, 925));
+        List<Integer> Y = new ArrayList<>(Arrays.asList(380, 262, 564, 240, 550, 570, 300, 680));
 
         List<StacjaRowerowa> stacjaRowerowaList = new ArrayList<>();
         StacjaRowerowa stacjaRowerowa;
         List<Stojak> stojakList1;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 8; i++) {
             stojakList1 = new ArrayList<>();
-            for (int j = 0; j < 4; j++) {
-                stojakList1.add(stojakList.get(i + 10 * j));
+            for (int j = 0; j < 5; j++) {
+                stojakList1.add(stojakList.get(i + 8 * j));
             }
-            stacjaRowerowa = new StacjaRowerowa(stojakList1, i * 10, i * 10, names.get(i));//TODO współrzędne zgodne z GUI
+            stacjaRowerowa = new StacjaRowerowa(stojakList1, X.get(i), Y.get(i), names.get(i));
             stacjaRowerowaList.add(stacjaRowerowa);
         }
         return stacjaRowerowaList;

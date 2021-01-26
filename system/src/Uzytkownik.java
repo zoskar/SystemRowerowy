@@ -34,7 +34,7 @@ public class Uzytkownik {
             Pair para = systemRowerowy.najblizszaStacja(lokalizacja, maRower());
             StacjaRowerowa najblizszaStacja = para.getNajblizszaStacja();
             double odlegloscOdStacji = para.getOdlegloscOdStacji();
-            if (odlegloscOdStacji < 20){
+            if (odlegloscOdStacji <= 35){
                 //jest możliwość braku powodzenia: podany rower jest w środku stacja rowerów
                 rower = najblizszaStacja.wydajRower(nrRoweru);
                 //jeżeli udało się wypożyczyć rower
@@ -58,7 +58,7 @@ public class Uzytkownik {
             Pair para = this.systemRowerowy.najblizszaStacja(this.lokalizacja, maRower());
             StacjaRowerowa najblizszaStacja = para.getNajblizszaStacja();
             double odlegloscOdStacji = para.getOdlegloscOdStacji();
-            if (odlegloscOdStacji <= 20){
+            if (odlegloscOdStacji <= 35){
                 System.out.println("Czy chcesz oddać rower w stacji: " + najblizszaStacja.getNazwaStacji() + "?");
                 //wyswietlenie przycisków
                 boolean wybor = true; //wybor użytkownika
