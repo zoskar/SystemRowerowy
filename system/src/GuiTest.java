@@ -157,7 +157,7 @@ public class GuiTest {
             // Ustawienie labelów
             rowerWyswietlanie.setText(String.valueOf(user.maRower()));
             idWyswietlanie.setText(String.valueOf(user.getUserID()));
-            saldoWyswietlanie.setText(String.valueOf(user.getSaldo()));
+            saldoWyswietlanie.setText(String.valueOf(user.getSaldo().getKwota()));
 
 
             // Funkcjonalność przycisków
@@ -209,7 +209,6 @@ public class GuiTest {
                         JOptionPane.showMessageDialog(contentPane,"Masz już wypożyczony rower","Wypożyczony rower",JOptionPane.ERROR_MESSAGE );
                     }
 
-
                 }
             };
             ActionListener oddajRowerAkcja = new ActionListener() {
@@ -243,40 +242,34 @@ public class GuiTest {
                         JOptionPane.showMessageDialog(contentPane,"Nie masz wypożyczonego roweru","Brak wypożyczonego roweru",JOptionPane.ERROR_MESSAGE );
                     }
 
-
-
                 }
             };
             ActionListener najblizszaStacjaAkcja = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //TODO Metoda najblizsza stacja
-                    String wypozyczRowerInfo = "Najblisza stacja to"; //TODO tutaj uzupełnić
-                    JOptionPane.showMessageDialog(contentPane, wypozyczRowerInfo,"Wypożyczenie roweru", JOptionPane.INFORMATION_MESSAGE);
+                    String nazwaStacji = user.jakaNajblizszaStacja().getNazwaStacji();
+                    String najblizszaStacjaInfo = "Najblisza stacja to " + nazwaStacji;
+                    JOptionPane.showMessageDialog(contentPane, najblizszaStacjaInfo,"Najbliższa stacja", JOptionPane.INFORMATION_MESSAGE);
                 }
             };
             ActionListener kodObreczyAkcja = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //TODO Metoda
-                    String wypozyczRowerInfo = "Kod obręczy to: "; //TODO tutaj uzupełnić
-                    JOptionPane.showMessageDialog(contentPane, wypozyczRowerInfo,"Kod obręczy", JOptionPane.INFORMATION_MESSAGE);
+                    if(user.maRower()){
+                        String kodObreczy = "Kod obręczy to: " + user.getRower().getKodObreczy();
+                        JOptionPane.showMessageDialog(contentPane, kodObreczy,"Kod obręczy", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(contentPane, "Nie posiadasz roweru.","Błąd kodu obręczy", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
             };
             ActionListener kontaktAkcja = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //TODO Metoda wypozyczRower uzytkownik
-                    String wypozyczRowerInfo = "Created by mojito1"; //TODO tutaj uzupełnić
-                    JOptionPane.showMessageDialog(contentPane, wypozyczRowerInfo,"Kontakt", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(contentPane, "Created by mojito1","Kontakt", JOptionPane.INFORMATION_MESSAGE);
                 }
             };
-
-
-
-
-
-
 
 
 
