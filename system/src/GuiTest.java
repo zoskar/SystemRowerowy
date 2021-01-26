@@ -2,6 +2,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -13,6 +15,10 @@ import java.io.IOException;
         private MyPanel contentPane;
 
         void displayGUI() {
+            //tu bedzie back
+
+
+
 
             /* TODO:
 
@@ -130,6 +136,61 @@ import java.io.IOException;
                 }
             });
             contentPane.setLayout(null);
+
+            // Funkcjonalność przycisków
+            ActionListener wypozyczRowerAkcja = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //TODO Metoda wypozyczRower uzytkownik
+                    String wypozyczRowerInfo = "Pomyślnie wypożyczono rower"; //TODO tutaj uzupełnić
+                    JOptionPane.showMessageDialog(contentPane, wypozyczRowerInfo,"Wypożyczenie roweru", JOptionPane.INFORMATION_MESSAGE);
+                }
+            };
+            ActionListener oddajRowerAkcja = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //TODO Metoda oddaj rower uzytkownik
+                    String wypozyczRowerInfo = "Pomyślnie oddano rower"; //TODO tutaj uzupełnić
+                    JOptionPane.showMessageDialog(contentPane, wypozyczRowerInfo,"Oddanie roweru", JOptionPane.INFORMATION_MESSAGE);
+                }
+            };
+            ActionListener najblizszaStacjaAkcja = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //TODO Metoda najblizsza stacja
+                    String wypozyczRowerInfo = "Najblisza stacja to"; //TODO tutaj uzupełnić
+                    JOptionPane.showMessageDialog(contentPane, wypozyczRowerInfo,"Wypożyczenie roweru", JOptionPane.INFORMATION_MESSAGE);
+                }
+            };
+            ActionListener kodObreczyAkcja = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //TODO Metoda
+                    String wypozyczRowerInfo = "Kod obręczy to: "; //TODO tutaj uzupełnić
+                    JOptionPane.showMessageDialog(contentPane, wypozyczRowerInfo,"Kod obręczy", JOptionPane.INFORMATION_MESSAGE);
+                }
+            };
+            ActionListener kontaktAkcja = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //TODO Metoda wypozyczRower uzytkownik
+                    String wypozyczRowerInfo = "Created by mojito1"; //TODO tutaj uzupełnić
+                    JOptionPane.showMessageDialog(contentPane, wypozyczRowerInfo,"Kontakt", JOptionPane.WARNING_MESSAGE);
+                }
+            };
+
+
+
+
+            // Dodanie funkcjonalności do przycisków
+            buttonWypozyczRower.addActionListener(wypozyczRowerAkcja);
+            buttonOddajRower.addActionListener(oddajRowerAkcja);
+            buttonNajblizszaStacja.addActionListener(najblizszaStacjaAkcja);
+            buttonKodObreczy.addActionListener(kodObreczyAkcja);
+            buttonKontakt.addActionListener(kontaktAkcja);
+
+
+
 
             frame.setResizable(false);
             frame.setLayout(null);
