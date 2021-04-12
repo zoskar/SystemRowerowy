@@ -320,7 +320,7 @@ public class GuiTest extends JComponent{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String msg = """
-                    Autorzy projektu: Mateusz Mianowny, Rafał Wolter, Oscar Zając.""";
+                    Autorzy projektu: Mateusz Mianowany, Rafał Wolert, Oskar Zając.""";
                     JOptionPane.showMessageDialog(contentPane, msg,"Kontakt", JOptionPane.INFORMATION_MESSAGE);
                 }
             };

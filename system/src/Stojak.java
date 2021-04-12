@@ -31,10 +31,7 @@ public class Stojak {
         this.rowery = rowery;
     }
     //Metody------------------------------------------------------------------------------------------------------------
-    //TODO
-    public boolean czyNaWierzchu(Rower rower){
-        return false;
-    }
+
     /**
      * @return liczba rowerów na danym stojaku
      */

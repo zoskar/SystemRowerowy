@@ -82,17 +82,10 @@ public class StacjaRowerowa {
         return sum;
     }
 
-    // Metoda zwracająca obiekt klasy Stojak
-    //TODO nie pamiętamy gdzie i czy to będzie używane
-    public Stojak ktoryStojak(Rower rower) {
-        return null;
-    }
-
-
     /**
      * Metoda która, jeśli są wolne miejsca, przyjmuje rower i odkłada go na stojak na którym jest najmniej rowerów
      * (dla zachowania porządku na chodniku).
-     * @param rower Rower który odkładamy na stojak
+     * @param rower - Rower który odkładamy na stojak
      */
     public boolean przyjmijRower(Rower rower) {
         if (this.wolneMiejsca <= 0){
