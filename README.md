@@ -1,7 +1,7 @@
 # SystemRowerowy
 Projekt z przedmiotu Podstawy Programowania 2
 
-autorzy:
+Autorzy:
 
 Mateusz Mianowany
 
