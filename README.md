@@ -14,7 +14,7 @@ Oskar Zając
 # Opis programu
 
 Program ma symulować miejski system rezerwacji rowerów. Rowery znajdują się na stacjach i ich ilość jest ograniczona. Użytkownik ma możliwość wypożyczyć rower oraz oddać go. Może on
-również wyszukać nabliższą mu stację. Zwrot roweru jest możliwy jeśli użytkownik znajduje się obok stacji na której jest przyanajmniej jedno wolne miejsce
+również wyszukać nabliższą mu stację. Zwrot roweru jest możliwy jeśli użytkownik znajduje się obok stacji na której jest przynajmniej jedno wolne miejsce
 
 # Diagram klas
 
